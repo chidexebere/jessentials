@@ -34,7 +34,7 @@ const orders = [
 	},
 ];
 
-const Checkout: NextPage = () => {
+const Cart: NextPage = () => {
 	return (
 		<div className="container mx-auto mt-10">
 			<div className="flex flex-col lg:flex-row shadow-md my-10">
@@ -172,4 +172,4 @@ const Checkout: NextPage = () => {
 	);
 };
 
-export default Checkout;
+export default Cart;
