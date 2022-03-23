@@ -37,22 +37,26 @@ const Nav = () => {
 	);
 };
 
-const Header: NextPage = () => {
+interface Props {
+	handleNavAdded: (value: boolean) => void;
+}
+
+const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	const [changeHeaderColor, setChangeHeaderColor] = useState(false);
+
 	const router = useRouter();
 	const homePath = `/`;
-	// const productPath = `/product`;
 	let nav;
 
 	if (router.pathname === homePath) {
 		nav = <Nav />;
+		handleNavAdded(true);
 	} else {
 		nav = null;
+		handleNavAdded(false);
 	}
 
 	const changeBackground = () => {
-		// console.log(window.scrollY);
-		/// console.log(headerColor);
 		if (window.scrollY >= 35) {
 			setChangeHeaderColor(true);
 		} else {

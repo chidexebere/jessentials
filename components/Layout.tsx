@@ -1,9 +1,17 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
+import cn from 'classnames';
 import Footer from './Footer';
 import Header from './Header';
 
 const Layout: NextPage = ({ children }) => {
+	const [isNavAdded, setIsNavAdded] = useState(false);
+
+	const handleNavAdded = (value: boolean) => {
+		setIsNavAdded(value);
+	};
+
 	return (
 		<div className="bg-neutral-100">
 			<Head>
@@ -14,8 +22,13 @@ const Layout: NextPage = ({ children }) => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Header />
-			<main className="relative top-44 px-4 mb-10 sm:top-32 sm:px-8 sm:my-12 lg:px-14">
+			<Header handleNavAdded={handleNavAdded} />
+			<main
+				className={cn(
+					isNavAdded ? 'top-44 sm:top-32' : 'top-20 sm:top-16',
+					'relative px-4 mb-10 sm:px-8 sm:my-12 lg:px-14'
+				)}
+			>
 				{children}
 			</main>
 			<Footer />

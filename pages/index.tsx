@@ -11,9 +11,7 @@ interface Props {
 const Home: NextPage<Props> = ({ products }) => {
 	return (
 		<div className="">
-			<h2 className="font-medium text-lg uppercase tracking-tight text-gray-900">
-				All products
-			</h2>
+			<h2 className="font-semibold text-2xl">All products</h2>
 
 			<div className="mt-6 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
 				{products.map((product) => {
