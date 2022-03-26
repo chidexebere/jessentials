@@ -2,40 +2,9 @@ import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
-// import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { ShoppingBagIcon, UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-
-const navigation = [
-	{ name: 'All', href: '#', current: true },
-	{ name: 'Oils', href: '#', current: false },
-	{ name: 'Bags', href: '#', current: false },
-	{ name: 'Shoes', href: '#', current: false },
-];
-
-const Nav = () => {
-	return (
-		<nav className="block py-4 overflow-x-auto sm:py-0 sm:pb-2">
-			<div className="flex justify-start sm:justify-center gap-x-2 sm:gap-x-10 space-x-4">
-				{navigation.map((item) => (
-					<a
-						key={item.name}
-						href={item.href}
-						className={cn(
-							item.current
-								? 'bg-black text-white hover:text-slate-200'
-								: 'text-black bg-gray-300 hover:text-slate-500',
-							'px-8 py-2 rounded-md text-sm font-medium text-base'
-						)}
-						aria-current={item.current ? 'page' : undefined}
-					>
-						{item.name}
-					</a>
-				))}
-			</div>
-		</nav>
-	);
-};
+import Nav from './Nav';
 
 interface Props {
 	handleNavAdded: (value: boolean) => void;
@@ -46,15 +15,13 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 
 	const router = useRouter();
 	const homePath = `/`;
-	let nav;
+	// let nav;
 
-	if (router.pathname === homePath) {
-		nav = <Nav />;
-		handleNavAdded(true);
-	} else {
-		nav = null;
-		handleNavAdded(false);
-	}
+	// if (router.pathname === homePath) {
+	// 	nav = <Nav />;
+	// } else {
+	// 	nav = null;
+	// }
 
 	const changeBackground = () => {
 		if (window.scrollY >= 35) {
@@ -65,6 +32,12 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	};
 
 	useEffect(() => {
+		if (router.pathname === homePath) {
+			handleNavAdded(true);
+		} else {
+			handleNavAdded(false);
+		}
+
 		changeBackground();
 		// adding the event when scroll change background
 		window.addEventListener('scroll', changeBackground);
@@ -106,7 +79,7 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 						</button>
 					</div>
 				</div>
-				{nav}
+				{router.pathname === homePath ? <Nav /> : null}
 			</div>
 		</header>
 	);

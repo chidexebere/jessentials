@@ -5,7 +5,11 @@ import cn from 'classnames';
 import Footer from './Footer';
 import Header from './Header';
 
-const Layout: NextPage = ({ children }) => {
+interface Props {
+	children: React.ReactNode;
+}
+
+const Layout: NextPage<Props> = ({ children }) => {
 	const [isNavAdded, setIsNavAdded] = useState(false);
 
 	const handleNavAdded = (value: boolean) => {
@@ -15,10 +19,10 @@ const Layout: NextPage = ({ children }) => {
 	return (
 		<div className="bg-neutral-100">
 			<Head>
-				<title>Create Next App</title>
+				<title>Jessentials</title>
 				<meta
 					name="description"
-					content="Home page of jessential eCommerce website"
+					content="Home page of jessentials eCommerce website"
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
