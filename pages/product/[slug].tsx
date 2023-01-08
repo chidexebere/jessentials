@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import { client, urlFor } from '../../lib/sanity';
-import { BodyContent, ProductObject } from '../../utils/types';
+import { BodyContent, ProductObject } from '../../types';
 
 interface Props {
 	product: ProductObject;
@@ -11,6 +11,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 	console.log(product);
 	const { body } = product;
 	const bodyContent: BodyContent[] = body.en;
+
+	if (!product) {
+		return <div>Product Not Found</div>;
+	}
+
 	return (
 		<div className="lg:grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-16">
 			<div className="lg:col-span-4">

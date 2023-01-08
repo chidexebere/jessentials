@@ -1,11 +1,10 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ProductsArray } from '../utils/types';
 import { client, urlFor } from '../lib/sanity';
 
 interface Props {
-	products: ProductsArray;
+	products: Product[];
 }
 
 const Home: NextPage<Props> = ({ products }) => {
@@ -64,7 +63,7 @@ const Home: NextPage<Props> = ({ products }) => {
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const products = await client.fetch(`*[_type == "product"]`);
 	return {
 		props: {
