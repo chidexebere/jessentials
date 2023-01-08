@@ -1,4 +1,4 @@
-export type ProductObject = {
+type Product = {
 	_createdAt: string;
 	_id: string;
 	_rev: string;
@@ -15,6 +15,7 @@ export type ProductObject = {
 		grams: number;
 		images: string[];
 		price: number;
+		numberInStock: number;
 	};
 	slug: { _type: string; current: string };
 	title: string;
@@ -25,9 +26,9 @@ export type ProductObject = {
 	};
 };
 
-export type ProductsArray = ProductObject[];
+// type ProductsArray = ProductObject[];
 
-export type BodyContent = {
+type BodyContent = {
 	_key: string;
 	_type: string;
 	children: [
@@ -41,3 +42,18 @@ export type BodyContent = {
 	markDefs: [];
 	style: string;
 };
+
+type CartItem = {
+	productItem: Product;
+	quantity: number;
+};
+
+// type CartItems = Product & number;
+
+interface IAppState {
+	showCart: boolean;
+	cartItems: CartItem[];
+	totalPrice: number;
+	totalQuantity: number;
+	selectedQty: number;
+}
