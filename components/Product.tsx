@@ -12,7 +12,7 @@ const Product = ({
 	console.log(_rev);
 	return (
 		<div>
-			<Link href={`/product/${slug.current}`} passHref>
+			<Link href={`/product/${slug.current}`}>
 				<div className="group/item hover:bg-red-200">
 					<div className="w-full rounded-md overflow-hidden shadow-lg shadow-indigo-500/50 hover:shadow-red-500/50">
 						{/* <div className="relative overflow-hidden bg-no-repeat bg-cover max-w-xs"> */}
@@ -23,7 +23,6 @@ const Product = ({
 							// className="max-w-xs"
 							width={300}
 							height={300}
-							layout="responsive"
 						/>
 						{/* <div className="absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-30 transition duration-300 ease-in-out bg-red-700"></div> */}
 					</div>
