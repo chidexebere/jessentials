@@ -1,32 +1,14 @@
-type Product = {
-	_createdAt: string;
-	_id: string;
-	_rev: string;
+type ImageType = {
 	_type: string;
-	_updatedAt: string;
-	blurb: {
-		_type: string;
-		en: string;
-	};
-	body: { _type: string; en: [] };
-	categories: [[], []];
-	defaultProductVariant: {
-		_type: string;
-		grams: number;
-		images: string[];
-		price: number;
-		numberInStock: number;
-	};
-	slug: { _type: string; current: string };
-	title: string;
-	tags: [];
-	vendor: {
-		_ref: string;
-		_type: string;
-	};
+	_key: string;
+	asset: { _ref: string; _type: strings };
 };
 
-// type ProductsArray = ProductObject[];
+type Category = {
+	_type: string;
+	_key: string;
+	_ref: string;
+};
 
 type BodyContent = {
 	_key: string;
@@ -43,12 +25,38 @@ type BodyContent = {
 	style: string;
 };
 
+type Product = {
+	_createdAt: string;
+	_id: string;
+	_rev: string;
+	_type: string;
+	_updatedAt: string;
+	blurb: {
+		_type: string;
+		en: string;
+	};
+	body: { _type: string; en: BodyContent[] };
+	categories: Category[];
+	defaultProductVariant: {
+		_type: string;
+		grams: number;
+		images: ImageType[];
+		price: number;
+		numberInStock: number;
+	};
+	slug: { _type: string; current: string };
+	title: string;
+	tags: [];
+	vendor: {
+		_ref: string;
+		_type: string;
+	};
+};
+
 type CartItem = {
 	productItem: Product;
 	quantity: number;
 };
-
-// type CartItems = Product & number;
 
 interface IAppState {
 	showCart: boolean;

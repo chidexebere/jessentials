@@ -1,10 +1,9 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import { client, urlFor } from '../../lib/sanity';
-import { BodyContent, ProductObject } from '../../types';
 
 interface Props {
-	product: ProductObject;
+	product: Product;
 }
 
 const ProductPage: NextPage<Props> = ({ product }) => {
