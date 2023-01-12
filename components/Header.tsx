@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
-import { ShoppingBagIcon } from '@heroicons/react/outline';
+import { HiOutlineShoppingBag } from 'react-icons/hi';
 import Link from 'next/link';
 import Nav from './Nav';
 
@@ -60,7 +60,7 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 							className="p-1 rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 						>
 							<span className="sr-only">View cart</span>
-							<ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
+							<HiOutlineShoppingBag className="h-6 w-6" aria-hidden="true" />
 						</button>
 					</div>
 				</div>

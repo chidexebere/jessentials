@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 
 const navigation = [
-	{ name: 'All', href: '#', current: true },
-	{ name: 'Health Care', href: '#', current: false },
-	{ name: 'Home Care', href: '#', current: false },
-	{ name: 'Fashion', href: '#', current: false },
+	{ name: 'All', current: true },
+	{ name: 'Health Care', current: false },
+	{ name: 'Home Care', current: false },
+	{ name: 'Fashion', current: false },
 ];
 
 const Nav = () => {
@@ -12,9 +12,8 @@ const Nav = () => {
 		<nav className="block py-4 overflow-x-auto sm:py-0 sm:pb-2">
 			<div className="flex justify-start sm:justify-center gap-x-2 sm:gap-x-10 space-x-4">
 				{navigation.map((item) => (
-					<a
+					<button
 						key={item.name}
-						href={item.href}
 						className={classNames(
 							item.current
 								? 'bg-black text-white hover:text-slate-200'
@@ -24,7 +23,7 @@ const Nav = () => {
 						aria-current={item.current ? 'page' : undefined}
 					>
 						{item.name}
-					</a>
+					</button>
 				))}
 			</div>
 		</nav>
