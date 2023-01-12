@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
-import { ShoppingBagIcon, UserIcon } from '@heroicons/react/outline';
+import { ShoppingBagIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import Nav from './Nav';
 
@@ -12,22 +12,18 @@ interface Props {
 
 const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	const [changeHeaderColor, setChangeHeaderColor] = useState(false);
+	const [height, setHeight] = useState('h-16');
 
 	const router = useRouter();
 	const homePath = `/`;
-	// let nav;
-
-	// if (router.pathname === homePath) {
-	// 	nav = <Nav />;
-	// } else {
-	// 	nav = null;
-	// }
 
 	const changeBackground = () => {
 		if (window.scrollY >= 35) {
 			setChangeHeaderColor(true);
+			setHeight('');
 		} else {
 			setChangeHeaderColor(false);
+			setHeight('h-16');
 		}
 	};
 
@@ -46,35 +42,24 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	return (
 		<header
 			className={cn(
-				changeHeaderColor ? 'bg-slate-100 shadow-lg' : 'bg-neutral-100',
+				changeHeaderColor ? 'bg-slate-100 shadow-lg' : 'bg-white',
 				'fixed inset-x-0 top-0 z-10'
 			)}
 		>
-			<div className="px-4 py-2 sm:px-8 lg:px-14">
-				<div className="relative flex items-center justify-between h-16">
-					<div className="flex-1 flex items-stretch justify-start">
-						<div className="flex-shrink-0 flex items-center cursor-pointer">
-							<Link href={`/`} passHref>
-								<h1 className="text-3xl text-red-700 font-bold">
-									J<span className="text-2xl text-black">ESSENTIALS</span>
-								</h1>
-							</Link>
-						</div>
-					</div>
+			<div className="mx-auto px-4 py-2 sm:px-8 lg:px-14 xl:w-[80rem]">
+				<div className={`flex items-center justify-between ${height}`}>
+					<Link href={`/`}>
+						<h1 className="text-3xl text-red-700 font-bold">
+							J<span className="text-2xl text-black">ESSENTIALS</span>
+						</h1>
+					</Link>
+
 					<div className="flex items-center gap-2 sm:gap-4">
 						<button
 							type="button"
 							className="p-1 rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
 						>
-							<span className="sr-only">Open user menu</span>
-							<UserIcon className="h-6 w-6" aria-hidden="true" />
-						</button>
-
-						<button
-							type="button"
-							className="p-1 rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-						>
-							<span className="sr-only">View notifications</span>
+							<span className="sr-only">View cart</span>
 							<ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
 						</button>
 					</div>

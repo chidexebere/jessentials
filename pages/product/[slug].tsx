@@ -1,4 +1,4 @@
-import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { client, urlFor } from '../../lib/sanity';
 
@@ -6,10 +6,8 @@ interface Props {
 	product: Product;
 }
 
-const ProductPage: NextPage<Props> = ({ product }) => {
-	console.log(product);
-	const { body } = product;
-	const bodyContent: BodyContent[] = body.en;
+const ProductPage = ({ product }: Props) => {
+	const { body, title, defaultProductVariant } = product;
 
 	if (!product) {
 		return <div>Product Not Found</div>;
@@ -20,12 +18,11 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 			<div className="lg:col-span-4">
 				<div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
 					<Image
-						src={urlFor(product.defaultProductVariant.images[0]).url()}
-						alt={product.title}
+						src={urlFor(defaultProductVariant.images[0]).url()}
+						alt={title}
 						className="object-center object-cover bg-red-100"
 						width={400}
 						height={400}
-						layout="responsive"
 					/>
 				</div>
 			</div>
@@ -33,12 +30,12 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 				<div className="flex flex-col-reverse">
 					<div>
 						<h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-							{product.title}
+							{title}
 						</h1>
 						<h2 id="information-heading" className="sr-only">
 							Product information
 						</h2>
-						<p className="text-xl text-gray-500 mt-8">{`₦ ${product.defaultProductVariant.price}`}</p>
+						<p className="text-xl text-gray-500 mt-8">{`₦ ${defaultProductVariant.price}`}</p>
 					</div>
 				</div>
 
@@ -57,9 +54,9 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 					</button>
 				</div>
 				<div className="pt-10 sm:border-t sm:mt-10">
-					{bodyContent?.map((content) => (
+					{body.en.map((content) => (
 						<p key={content._key} className="text-gray-500 mt-6">
-							{content?.children[0]?.text}
+							{content.children[0].text}
 						</p>
 					))}
 				</div>
@@ -71,32 +68,36 @@ const ProductPage: NextPage<Props> = ({ product }) => {
 export default ProductPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const paths = await client.fetch(
-		`*[_type == "product" && defined(slug.current)]{
-      "params": {
-        "slug": slug.current
-      }
-    }`
-	);
+	const query = `*[_type == "product"] {
+    slug {
+      current
+    }
+  }
+  `;
+
+	const products = await client.fetch(query);
+
+	const paths = products.map((product: Product) => ({
+		params: {
+			slug: product.slug.current,
+		},
+	}));
 
 	return {
 		paths,
-		fallback: true,
+		fallback: false,
 	};
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-	const { params = {} } = context;
-	const { slug } = params;
+export const getStaticProps: GetStaticProps = async ({
+	params: { slug } = {},
+}) => {
+	console.log(slug);
+	const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
 
-	const product = await client.fetch(
-		`*[_type == "product" && slug.current == $slug][0]`,
-		{ slug }
-	);
+	const product = await client.fetch(query);
 
 	return {
-		props: {
-			product,
-		},
+		props: { product },
 	};
 };

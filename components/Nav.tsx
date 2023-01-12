@@ -2,9 +2,9 @@ import classNames from 'classnames';
 
 const navigation = [
 	{ name: 'All', href: '#', current: true },
-	{ name: 'Oils', href: '#', current: false },
-	{ name: 'Bags', href: '#', current: false },
-	{ name: 'Shoes', href: '#', current: false },
+	{ name: 'Health Care', href: '#', current: false },
+	{ name: 'Home Care', href: '#', current: false },
+	{ name: 'Fashion', href: '#', current: false },
 ];
 
 const Nav = () => {

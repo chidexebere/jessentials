@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 
 const Footer: NextPage = () => {
+	const d = new Date();
+	const year = d.getFullYear();
 	return (
 		<footer className="relative top-32 bg-black mt-20 px-4 sm:px-8 sm:mt-24 lg:px-14">
 			<div className="py-12 md:flex md:items-center md:justify-between">
@@ -60,7 +62,7 @@ const Footer: NextPage = () => {
 				</div>
 				<div className="mt-8 md:mt-0 md:order-1">
 					<p className="text-center text-sm text-gray-200">
-						© 2020 Jessentials. All rights reserved.
+						© {year} Jessentials. All rights reserved.
 					</p>
 				</div>
 			</div>

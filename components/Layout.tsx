@@ -30,7 +30,7 @@ const Layout: NextPage<Props> = ({ children }) => {
 			<main
 				className={cn(
 					isNavAdded ? 'top-44 sm:top-32' : 'top-20 sm:top-16',
-					'relative px-4 mb-10 sm:px-8 sm:my-12 lg:px-14'
+					'relative mx-auto px-4 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem]'
 				)}
 			>
 				{children}
