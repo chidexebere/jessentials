@@ -43,7 +43,7 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 		<header
 			className={cn(
 				changeHeaderColor ? 'bg-slate-100 shadow-lg' : 'bg-white',
-				'fixed inset-x-0 top-0 z-10'
+				'sticky inset-x-0 top-0 z-10'
 			)}
 		>
 			<div className="mx-auto px-4 py-2 sm:px-8 lg:px-14 xl:w-[80rem]">

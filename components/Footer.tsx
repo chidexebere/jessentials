@@ -10,7 +10,7 @@ const Footer: NextPage = () => {
 	const d = new Date();
 	const year = d.getFullYear();
 	return (
-		<footer className="relative top-32 bg-black mt-20 px-4 sm:px-8 sm:mt-24 lg:px-14">
+		<footer className="bg-black mt-20 px-4 sm:px-8 sm:mt-24 lg:px-14">
 			<div className="py-12 md:flex md:items-center md:justify-between">
 				<div className="flex justify-center space-x-6 md:order-2">
 					<a href="#" className="text-gray-400 hover:text-gray-500">

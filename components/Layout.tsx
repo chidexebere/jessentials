@@ -24,15 +24,11 @@ const Layout: NextPage<Props> = ({ children }) => {
 					name="description"
 					content="Home page of jessentials eCommerce website"
 				/>
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header handleNavAdded={handleNavAdded} />
-			<main
-				className={cn(
-					isNavAdded ? 'top-44 sm:top-32' : 'top-20 sm:top-16',
-					'relative mx-auto px-4 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem]'
-				)}
-			>
+			<main className="mt-6 mx-auto px-12 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem]">
 				{children}
 			</main>
 			<Footer />
