@@ -120,12 +120,12 @@ const ProductPage = ({ product, products }: Props) => {
 					</div>
 				</div>
 			</div>
-			<section className="maylike-products-wrapper mt-20">
+			<section className="mt-20">
 				<h2 className="mb-4 text-2xl sm:text-3xl font-medium tracking-tight">
 					Other products
 				</h2>
-				<div className="marquee relative w-full h-[22rem] overflow-x-hidden">
-					<div className="maylike-products-container flex justify-start gap-8 track absolute whitespace-nowrap will-change-transform animate-marquee hover:pause">
+				<div className="relative w-full h-[22rem] overflow-x-hidden">
+					<div className="flex justify-start gap-8 absolute whitespace-nowrap will-change-transform animate-marquee hover:pause">
 						{products.map((item) => (
 							<div key={item._id} className="w-60">
 								<Product product={item} />
