@@ -11,7 +11,7 @@ const Home = ({ products }: Props) => {
 		<div className="">
 			<h2 className="font-semibold text-2xl">All products</h2>
 
-			<div className="mt-6 px-10 sm:px-0 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+			<div className="mt-6 sm:px-0 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
 				{products.map((product) => (
 					<Product key={product._id} product={product} />
 				))}
