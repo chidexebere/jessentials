@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { HiMinus, HiPlus } from 'react-icons/hi';
 import Product from '../../components/Product';
 import { client, urlFor } from '../../lib/sanity';
+import { useStateContext } from '../../state/hooks';
 
 interface Props {
 	product: Product;
@@ -12,12 +13,27 @@ interface Props {
 
 const ProductPage = ({ product, products }: Props) => {
 	const { body, title, defaultProductVariant } = product;
-	const [quanity, setQuantity] = useState<string | number>(1);
+	const {
+		decreaseQty,
+		increaseQty,
+		setQty,
+		selectedQty,
+		addToCart,
+		toggleShowCart,
+	} = useStateContext();
+
 	const [index, setIndex] = useState(0);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target as HTMLInputElement;
-		setQuantity(value);
+		setQty(Number(value));
+	};
+
+	const quantity = selectedQty === 0 ? '' : selectedQty;
+
+	const handlePay = () => {
+		addToCart(product, selectedQty);
+		toggleShowCart();
 	};
 
 	if (!product) {
@@ -77,19 +93,21 @@ const ProductPage = ({ product, products }: Props) => {
 							<button
 								data-action="decrement"
 								className="text-gray-500 hover:text-red-500 bg-white hover:bg-gray-400 outline-none h-full w-20 rounded-l"
+								onClick={decreaseQty}
 							>
 								<HiMinus className="m-auto" />
 							</button>
 							<input
 								type="number"
-								className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+								className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default text-gray-700  outline-none"
 								name="quatity-input-number"
-								value={quanity}
+								value={quantity}
 								onChange={handleInputChange}
 							/>
 							<button
 								data-action="increment"
 								className="text-gray-500 hover:text-green-700 bg-white hover:bg-gray-400 outline-none h-full w-20 rounded-r"
+								onClick={increaseQty}
 							>
 								<HiPlus className="m-auto" />
 							</button>
@@ -100,6 +118,7 @@ const ProductPage = ({ product, products }: Props) => {
 						<button
 							type="button"
 							className="w-full bg-gray-50 hover:bg-gray-400 border rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-900 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
+							onClick={() => addToCart(product, selectedQty)}
 						>
 							Add To Cart
 						</button>
@@ -107,6 +126,7 @@ const ProductPage = ({ product, products }: Props) => {
 						<button
 							type="button"
 							className="w-full bg-gray-900 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
+							onClick={handlePay}
 						>
 							Pay
 						</button>
@@ -120,7 +140,7 @@ const ProductPage = ({ product, products }: Props) => {
 					</div>
 				</div>
 			</div>
-			<section className="mt-20">
+			<section className="mt-16">
 				<h2 className="mb-4 text-2xl sm:text-3xl font-medium tracking-tight">
 					Other products
 				</h2>
@@ -165,7 +185,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({
 	params: { slug } = {},
 }) => {
-	console.log(slug);
 	const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
 	const productsQuery = '*[_type == "product"]';
 
