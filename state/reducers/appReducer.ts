@@ -2,9 +2,10 @@ import { AppActions, CONSTANTS } from '../actions';
 
 const appReducer = (state: IAppState, action: AppActions): IAppState => {
 	switch (action.type) {
-		case CONSTANTS.TOGGLE_CART: {
+		case CONSTANTS.TOGGLE_SHOW_CART: {
 			return { ...state, showCart: !state.showCart };
 		}
+
 		case CONSTANTS.SET_CART_ITEMS: {
 			return { ...state, cartItems: action.payload };
 		}
@@ -25,6 +26,10 @@ const appReducer = (state: IAppState, action: AppActions): IAppState => {
 			const decreasedQty = state.selectedQty - 1;
 			if (decreasedQty < 1) return state;
 			return { ...state, selectedQty: state.selectedQty - 1 };
+		}
+
+		case CONSTANTS.SET_QTY: {
+			return { ...state, selectedQty: action.payload };
 		}
 
 		default:
