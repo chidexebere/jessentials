@@ -5,6 +5,8 @@ import cn from 'classnames';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import Link from 'next/link';
 import Nav from './Nav';
+import { useStateContext } from '../state/hooks';
+import Cart from './Cart';
 
 interface Props {
 	handleNavAdded: (value: boolean) => void;
@@ -13,6 +15,8 @@ interface Props {
 const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	const [changeHeaderColor, setChangeHeaderColor] = useState(false);
 	const [height, setHeight] = useState('h-16');
+
+	const { showCart, toggleShowCart, totalQuantity } = useStateContext();
 
 	const router = useRouter();
 	const homePath = `/`;
@@ -57,15 +61,20 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 					<div className="flex items-center gap-2 sm:gap-4">
 						<button
 							type="button"
-							className="p-1 rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+							className="relative p-1 rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+							onClick={toggleShowCart}
 						>
 							<span className="sr-only">View cart</span>
 							<HiOutlineShoppingBag className="h-6 w-6" aria-hidden="true" />
+							<span className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
+								{totalQuantity}
+							</span>
 						</button>
 					</div>
 				</div>
 				{router.pathname === homePath ? <Nav /> : null}
 			</div>
+			{showCart && <Cart />}
 		</header>
 	);
 };
