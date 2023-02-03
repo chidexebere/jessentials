@@ -117,7 +117,7 @@ const ProductPage = ({ product, products }: Props) => {
 					<div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
 						<button
 							type="button"
-							className="w-full bg-gray-50 hover:bg-gray-400 border rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-900 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
+							className="w-full bg-gray-50 hover:bg-gray-400 border rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-gray-900 hover:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
 							onClick={() => addToCart(product, selectedQty)}
 						>
 							Add To Cart

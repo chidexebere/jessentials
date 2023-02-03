@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import {
 	HiMinus,
@@ -13,9 +13,14 @@ import { useStateContext } from '../state/hooks';
 import { urlFor } from '../lib/sanity';
 import getStripe from '../lib/getStripe';
 import Image from 'next/image';
+import Modal from './Modal';
+import Confirm from './Confirm';
 
 const Cart = () => {
 	const cartRef = useRef<HTMLDivElement | any>();
+	const [showModal, setShowModal] = useState(false);
+
+	console.log(showModal);
 
 	const {
 		cartItems,
@@ -25,6 +30,15 @@ const Cart = () => {
 		modifyCartItems,
 		toggleShowCart,
 	} = useStateContext();
+
+	const toggleModal = () => {
+		setShowModal(!showModal);
+	};
+
+	const openModal = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		toggleModal();
+	};
 
 	const handleCheckout = async () => {
 		const stripe = await getStripe();
@@ -50,7 +64,7 @@ const Cart = () => {
 
 	return (
 		<div
-			className="w-screen bg-black/50 fixed top-0 right-0 z-50 transition duration-1000 ease-in-out"
+			className="w-screen bg-black/50 fixed top-0 right-0 z-40 transition duration-1000 ease-in-out"
 			ref={cartRef}
 		>
 			<div className="h-screen w-4/5 md:w-3/5 xl:w-2/5 bg-white float-right py-4 px-2 md:px-5 lg:px-10 relative">
@@ -137,10 +151,34 @@ const Cart = () => {
 									<button
 										type="button"
 										className="mt-2 w-10 h-10 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2"
-										onClick={() => removeFromCart(item.productItem)}
+										onClick={openModal}
 									>
 										<HiX className="w-5 h-5 m-auto" />
 									</button>
+
+									<Modal
+										title={`Remove ${item.productItem.title}`}
+										isOpen={showModal}
+										handleClick={toggleModal}
+									>
+										<Confirm
+											toggleModal={toggleModal}
+											name="remove"
+											handleSubmit={(
+												e:
+													| React.FormEvent<HTMLFormElement>
+													| React.MouseEvent<HTMLButtonElement>
+											) => {
+												e.preventDefault();
+												removeFromCart(item.productItem);
+												toggleModal();
+											}}
+										>
+											<h5 className="text-lg leading-normal font-normal text-gray-800">
+												Do you want to remove this item from cart?
+											</h5>
+										</Confirm>
+									</Modal>
 								</div>
 							</div>
 						))}
