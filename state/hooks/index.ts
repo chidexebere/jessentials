@@ -8,12 +8,13 @@ export const useStateContext = () => {
 
 	const { showCart, cartItems, totalPrice, totalQuantity, selectedQty } = state;
 
-	const addToCart = (selectedProduct: Product, quantity: number) => {
+	const addToCart = (selectedProduct: Product, selectedQuantity: number) => {
 		const checkProductInCart = cartItems.some(
 			(cartItem) => cartItem.productItem._id === selectedProduct._id
 		);
 		const newTotalPrice =
-			totalPrice + selectedProduct.defaultProductVariant.price * quantity;
+			totalPrice +
+			selectedProduct.defaultProductVariant.price * selectedQuantity;
 		dispatch({
 			type: CONSTANTS.SET_TOTAL_PRICE,
 			payload: newTotalPrice,
@@ -21,24 +22,33 @@ export const useStateContext = () => {
 
 		dispatch({
 			type: CONSTANTS.SET_TOTAL_QTY,
-			payload: totalQuantity + quantity,
+			payload: totalQuantity + selectedQuantity,
 		});
 
 		if (checkProductInCart) {
-			const updatedCartItems = cartItems.map((cartItem) => {
-				if (cartItem.productItem._id === selectedProduct._id)
-					return {
-						...cartItem,
-						quantity: cartItem.quantity + quantity,
-					};
-			});
+			const updatedCartItem = cartItems.find(
+				(cartItem) => cartItem.productItem._id === selectedProduct._id
+			) as CartItem;
+
+			const remainingCartItems = cartItems.filter(
+				(cartItem) => cartItem.productItem._id !== selectedProduct._id
+			);
 
 			dispatch({
 				type: CONSTANTS.SET_CART_ITEMS,
-				payload: updatedCartItems as CartItem[],
+				payload: [
+					...remainingCartItems,
+					{
+						...updatedCartItem,
+						quantity: updatedCartItem.quantity + selectedQuantity,
+					},
+				],
 			});
 		} else {
-			const selectedItem = { productItem: selectedProduct, quantity };
+			const selectedItem = {
+				productItem: selectedProduct,
+				quantity: selectedQuantity,
+			};
 
 			dispatch({
 				type: CONSTANTS.SET_CART_ITEMS,
@@ -75,6 +85,10 @@ export const useStateContext = () => {
 			type: CONSTANTS.SET_CART_ITEMS,
 			payload: newCartItems,
 		});
+
+		toast(`${selectedProduct.title} removed from cart.`, {
+			icon: '🔔',
+		});
 	};
 
 	const modifyCartItems = (id: string, value: string) => {
@@ -82,18 +96,20 @@ export const useStateContext = () => {
 			(cartItem) => cartItem.productItem._id === id
 		) as CartItem;
 
-		const newCartItems = cartItems.filter(
-			(cartItem) => cartItem.productItem._id !== id
+		const selectedItemIndex = cartItems.findIndex(
+			(cartItem) => cartItem.productItem._id === id
 		);
 
+		const cartItemsCopy = cartItems.slice();
+
 		if (value === 'inc') {
-			const modifiedCartItems = [
-				...newCartItems,
-				{ ...selectedItem, quantity: selectedItem.quantity + 1 },
-			];
+			cartItemsCopy.splice(selectedItemIndex, 1, {
+				...selectedItem,
+				quantity: selectedItem.quantity + 1,
+			});
 			dispatch({
 				type: CONSTANTS.SET_CART_ITEMS,
-				payload: modifiedCartItems,
+				payload: cartItemsCopy,
 			});
 
 			const newTotalPrice =
@@ -110,13 +126,13 @@ export const useStateContext = () => {
 			});
 		} else if (value === 'dec') {
 			if (selectedItem.quantity > 1) {
-				const modifiedCartItems = [
-					...newCartItems,
-					{ ...selectedItem, quantity: selectedItem.quantity - 1 },
-				];
+				cartItemsCopy.splice(selectedItemIndex, 1, {
+					...selectedItem,
+					quantity: selectedItem.quantity - 1,
+				});
 				dispatch({
 					type: CONSTANTS.SET_CART_ITEMS,
-					payload: modifiedCartItems,
+					payload: cartItemsCopy,
 				});
 
 				const newTotalPrice =

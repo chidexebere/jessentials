@@ -46,21 +46,25 @@ const Cart = () => {
 		stripe!.redirectToCheckout({ sessionId: data.id });
 	};
 
+	console.log(cartItems);
+
 	return (
 		<div
 			className="w-screen bg-black/50 fixed top-0 right-0 z-50 transition duration-1000 ease-in-out"
 			ref={cartRef}
 		>
 			<div className="h-screen w-4/5 md:w-3/5 xl:w-2/5 bg-white float-right py-4 px-2 md:px-5 lg:px-10 relative">
-				<button
-					type="button"
-					className="flex items-center text-lg font-medium cursor-pointer gap-0.5 border-0 bg-transparent"
-					onClick={toggleShowCart}
-				>
-					<HiArrowLeft size={25} />
+				<div className="flex items-center text-lg font-medium gap-0.5">
+					<button
+						type="button"
+						className="rounded-full text-black hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+						onClick={toggleShowCart}
+					>
+						<HiArrowLeft size={25} />
+					</button>
 					<span className="mx-2.5">Your Cart</span>
 					<span className="text-red-500">({totalQuantity} items)</span>
-				</button>
+				</div>
 
 				{cartItems.length < 1 && (
 					<div className="m-10 text-center">
@@ -117,6 +121,7 @@ const Cart = () => {
 											className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default text-gray-700  outline-none"
 											name="quatity-input-number"
 											value={item.quantity}
+											onChange={() => {}}
 										/>
 
 										<button
