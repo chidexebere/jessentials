@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { CONSTANTS } from '../actions';
@@ -8,6 +9,30 @@ export const useStateContext = () => {
 
 	const { showCart, cartItems, totalPrice, totalQuantity, selectedQty } = state;
 
+	const setCartItems = (cartItems: CartItem[]) => {
+		dispatch({
+			type: CONSTANTS.SET_CART_ITEMS,
+			payload: cartItems,
+		});
+		Cookies.set('cartItems', JSON.stringify(cartItems));
+	};
+
+	const setTotalPrice = (totalPrice: number) => {
+		dispatch({
+			type: CONSTANTS.SET_TOTAL_PRICE,
+			payload: totalPrice,
+		});
+		Cookies.set('totalPrice', JSON.stringify(totalPrice));
+	};
+
+	const setTotalQuanitity = (totalQuantity: number) => {
+		dispatch({
+			type: CONSTANTS.SET_TOTAL_QTY,
+			payload: totalQuantity,
+		});
+		Cookies.set('totalQuantity', JSON.stringify(totalQuantity));
+	};
+
 	const addToCart = (selectedProduct: Product, selectedQuantity: number) => {
 		const checkProductInCart = cartItems.some(
 			(cartItem) => cartItem.productItem._id === selectedProduct._id
@@ -15,15 +40,9 @@ export const useStateContext = () => {
 		const newTotalPrice =
 			totalPrice +
 			selectedProduct.defaultProductVariant.price * selectedQuantity;
-		dispatch({
-			type: CONSTANTS.SET_TOTAL_PRICE,
-			payload: newTotalPrice,
-		});
 
-		dispatch({
-			type: CONSTANTS.SET_TOTAL_QTY,
-			payload: totalQuantity + selectedQuantity,
-		});
+		setTotalPrice(newTotalPrice);
+		setTotalQuanitity(totalQuantity + selectedQuantity);
 
 		if (checkProductInCart) {
 			const updatedCartItem = cartItems.find(
@@ -34,26 +53,20 @@ export const useStateContext = () => {
 				(cartItem) => cartItem.productItem._id !== selectedProduct._id
 			);
 
-			dispatch({
-				type: CONSTANTS.SET_CART_ITEMS,
-				payload: [
-					...remainingCartItems,
-					{
-						...updatedCartItem,
-						quantity: updatedCartItem.quantity + selectedQuantity,
-					},
-				],
-			});
+			setCartItems([
+				...remainingCartItems,
+				{
+					...updatedCartItem,
+					quantity: updatedCartItem.quantity + selectedQuantity,
+				},
+			]);
 		} else {
 			const selectedItem = {
 				productItem: selectedProduct,
 				quantity: selectedQuantity,
 			};
 
-			dispatch({
-				type: CONSTANTS.SET_CART_ITEMS,
-				payload: [...cartItems, { ...selectedItem }],
-			});
+			setCartItems([...cartItems, { ...selectedItem }]);
 		}
 
 		toast.success(`${selectedQty} ${selectedProduct.title} added to the cart.`);
@@ -71,20 +84,10 @@ export const useStateContext = () => {
 			totalPrice -
 			selectedItem.productItem.defaultProductVariant.price *
 				selectedItem.quantity;
-		dispatch({
-			type: CONSTANTS.SET_TOTAL_PRICE,
-			payload: newTotalPrice,
-		});
 
-		dispatch({
-			type: CONSTANTS.SET_TOTAL_QTY,
-			payload: totalQuantity - selectedItem.quantity,
-		});
-
-		dispatch({
-			type: CONSTANTS.SET_CART_ITEMS,
-			payload: newCartItems,
-		});
+		setTotalPrice(newTotalPrice);
+		setTotalQuanitity(totalQuantity - selectedItem.quantity);
+		setCartItems(newCartItems);
 
 		toast(`${selectedProduct.title} removed from cart.`, {
 			icon: '🔔',
@@ -107,46 +110,28 @@ export const useStateContext = () => {
 				...selectedItem,
 				quantity: selectedItem.quantity + 1,
 			});
-			dispatch({
-				type: CONSTANTS.SET_CART_ITEMS,
-				payload: cartItemsCopy,
-			});
+
+			setCartItems(cartItemsCopy);
 
 			const newTotalPrice =
 				totalPrice + selectedItem.productItem.defaultProductVariant.price;
 
-			dispatch({
-				type: CONSTANTS.SET_TOTAL_PRICE,
-				payload: newTotalPrice,
-			});
-
-			dispatch({
-				type: CONSTANTS.SET_TOTAL_QTY,
-				payload: totalQuantity + 1,
-			});
+			setTotalPrice(newTotalPrice);
+			setTotalQuanitity(totalQuantity + 1);
 		} else if (value === 'dec') {
 			if (selectedItem.quantity > 1) {
 				cartItemsCopy.splice(selectedItemIndex, 1, {
 					...selectedItem,
 					quantity: selectedItem.quantity - 1,
 				});
-				dispatch({
-					type: CONSTANTS.SET_CART_ITEMS,
-					payload: cartItemsCopy,
-				});
+
+				setCartItems(cartItemsCopy);
 
 				const newTotalPrice =
 					totalPrice - selectedItem.productItem.defaultProductVariant.price;
 
-				dispatch({
-					type: CONSTANTS.SET_TOTAL_PRICE,
-					payload: newTotalPrice,
-				});
-
-				dispatch({
-					type: CONSTANTS.SET_TOTAL_QTY,
-					payload: totalQuantity - 1,
-				});
+				setTotalPrice(newTotalPrice);
+				setTotalQuanitity(totalQuantity - 1);
 			}
 		}
 	};
@@ -182,6 +167,7 @@ export const useStateContext = () => {
 		totalPrice,
 		totalQuantity,
 		selectedQty,
+		setCartItems,
 		addToCart,
 		removeFromCart,
 		modifyCartItems,
