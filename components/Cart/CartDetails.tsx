@@ -132,21 +132,6 @@ const CartDetails = () => {
 						</div>
 					))}
 			</div>
-			{/* {cartItems.length >= 1 && (
-				<div className="w-full bg-neutral-100 absolute bottom-0 inset-x-0 py-4 px-4  md:px-6 lg:px-12">
-					<div className="flex justify-between text-lg font-bold mb-12">
-						<h3>Subtotal:</h3>
-						<h3>${totalPrice}</h3>
-					</div>
-					<button
-						type="button"
-						className="w-full bg-gray-900 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500 uppercase mb-8"
-						onClick={() => handleCheckout(cartItems)}
-					>
-						Pay with Stripe
-					</button>
-				</div>
-			)} */}
 		</div>
 	);
 };
