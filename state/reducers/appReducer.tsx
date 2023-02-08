@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { AppActions, CONSTANTS } from '../actions';
 
 const appReducer = (state: IAppState, action: AppActions): IAppState => {
@@ -7,14 +8,17 @@ const appReducer = (state: IAppState, action: AppActions): IAppState => {
 		}
 
 		case CONSTANTS.SET_CART_ITEMS: {
+			Cookies.set('cartItems', JSON.stringify(action.payload));
 			return { ...state, cartItems: action.payload };
 		}
 
 		case CONSTANTS.SET_TOTAL_PRICE: {
+			Cookies.set('totalPrice', JSON.stringify(action.payload));
 			return { ...state, totalPrice: action.payload };
 		}
 
 		case CONSTANTS.SET_TOTAL_QTY: {
+			Cookies.set('totalQuantity', JSON.stringify(action.payload));
 			return { ...state, totalQuantity: action.payload };
 		}
 
