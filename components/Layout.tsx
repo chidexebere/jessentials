@@ -1,9 +1,12 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useState } from 'react';
-import cn from 'classnames';
 import Footer from './Footer';
-import Header from './Header';
+
+const Header = dynamic(() => import('../components/Header'), {
+	ssr: false,
+});
 
 interface Props {
 	children: React.ReactNode;
