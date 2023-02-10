@@ -15,8 +15,10 @@ const UseCart = () => {
 	return (
 		<>
 			<CartHeader />
-			<CartDetails />
-			<CartSummary />
+			<div className="grid grid-cols-1 gap-x-4 lg:grid-cols-2">
+				<CartDetails />
+				<CartSummary />
+			</div>
 		</>
 	);
 };

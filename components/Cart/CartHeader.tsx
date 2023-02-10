@@ -5,7 +5,7 @@ const CartHeader = () => {
 
 	return (
 		<div className="flex items-center text-lg font-medium ">
-			<span className="text-xl">Cart</span>
+			<span className="text-xl">{totalQuantity === 0 ? '' : `Cart`}</span>
 			<span className="ml-2.5 text-red-500">
 				{totalQuantity === 0
 					? ''

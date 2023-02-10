@@ -1,10 +1,12 @@
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { HiMinus, HiPlus } from 'react-icons/hi';
 import Product from '../../components/Product';
 import { client, urlFor } from '../../lib/sanity';
 import { useStateContext } from '../../state/hooks';
+import { convertToDollar } from '../../utils/helper';
 
 interface Props {
 	product: Product;
@@ -30,11 +32,6 @@ const ProductPage = ({ product, products }: Props) => {
 	};
 
 	const quantity = selectedQty === 0 ? '' : selectedQty;
-
-	const handlePay = () => {
-		addToCart(product, selectedQty);
-		toggleShowCart();
-	};
 
 	if (!product) {
 		return <div>Product Not Found</div>;
@@ -80,8 +77,8 @@ const ProductPage = ({ product, products }: Props) => {
 							Product information
 						</h2>
 						<p className="text-2xl text-gray-800 my-2">
-							{`$${defaultProductVariant.price} `}
-							<span className="text-lg text-gray-500">USD</span>
+							{convertToDollar(defaultProductVariant.price)}
+							<span className="ml-1 text-lg text-gray-500">USD</span>
 						</p>
 					</div>
 
@@ -123,13 +120,14 @@ const ProductPage = ({ product, products }: Props) => {
 							Add To Cart
 						</button>
 
-						<button
-							type="button"
-							className="w-full bg-gray-900 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
-							onClick={handlePay}
-						>
-							Pay
-						</button>
+						<Link href={'/use-cart'}>
+							<button
+								type="button"
+								className="w-full bg-gray-900 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-gray-500"
+							>
+								Checkout
+							</button>
+						</Link>
 					</div>
 					<div className="pt-10 sm:border-t sm:mt-10">
 						{body.en.map((content) => (

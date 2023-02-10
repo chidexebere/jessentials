@@ -9,7 +9,6 @@ const Success = () => {
 	const { setCartItems, setTotalPrice, setTotalQuantity } = useStateContext();
 
 	useEffect(() => {
-		// localStorage.clear();
 		setCartItems([]);
 		setTotalPrice(0);
 		setTotalQuantity(0);
@@ -29,17 +28,17 @@ const Success = () => {
 				</p>
 				<p className="mt-4 text-base font-medium">
 					If you have any questions, email:
-					<a className="ml-2 text-blue-400" href="mailto:order@example.com">
-						order@example.com
+					<a className="ml-2 text-blue-400" href="mailto:order@jessentials.com">
+						order@jessentials.com
 					</a>
 				</p>
 
-				<Link href="/">
+				<Link href="/" className="flex justify-center">
 					<button
 						type="button"
-						className="my-20 w-full bg-gray-50 hover:bg-red-400 border rounded-md py-3 px-8 flex items-center justify-center text-base uppercase font-medium text-red-500 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-50"
+						className="my-10 bg-gray-50 hover:bg-red-400 border rounded-md py-3 px-8 flex items-center justify-center text-base uppercase font-medium text-red-500 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-50"
 					>
-						Return to Shopping
+						Continue Shopping
 					</button>
 				</Link>
 			</div>

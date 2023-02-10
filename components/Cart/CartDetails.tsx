@@ -7,15 +7,13 @@ import { urlFor } from '../../lib/sanity';
 import Image from 'next/image';
 import Modal from '.././Modal';
 import Confirm from '.././Confirm';
-import { handleCheckout } from '../../utils/helper';
+import { convertToDollar } from '../../utils/helper';
 
 const CartDetails = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	const {
 		cartItems,
-		totalPrice,
-		totalQuantity,
 		showCart,
 		removeFromCart,
 		modifyCartItems,
@@ -32,18 +30,18 @@ const CartDetails = () => {
 	};
 
 	return (
-		<div>
+		<>
 			{cartItems.length < 1 && (
-				<div className="m-10 text-center">
+				<div className="m-10 col-span-2 text-center">
 					<HiOutlineShoppingBag className="inline" size={150} />
 					<h3 className="text-xl font-semibold">
 						Your cart is currently empty
 					</h3>
-					<Link href="/">
+					<Link href="/" className="flex justify-center">
 						<button
 							type="button"
 							onClick={showCart ? toggleShowCart : () => {}}
-							className="mt-10 w-full bg-gray-50 hover:bg-red-400 border rounded-md py-3 px-8 flex items-center justify-center text-base uppercase font-medium text-red-500 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-50"
+							className="mt-10 bg-gray-50 hover:bg-red-400 border rounded-md py-3 px-8 flex items-center justify-center text-base uppercase font-medium text-red-500 hover:text-white shadow-sm  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-50"
 						>
 							Return to Shopping
 						</button>
@@ -51,7 +49,7 @@ const CartDetails = () => {
 				</div>
 			)}
 
-			<div className="mt-4 overflow-auto px-2.5 py-5">
+			<div className="mt-4 py-5">
 				{cartItems.length >= 1 &&
 					cartItems.map((item) => (
 						<div
@@ -70,7 +68,9 @@ const CartDetails = () => {
 							<div className="grow mt-2 grid grid-cols-1 gap-y-1 sm:grid-cols-3 sm:gap-x-8 font-medium">
 								<h5 className="sm:col-span-2">{item.productItem.title}</h5>
 								<h4 className="text-gray-600 sm:ml-1">
-									${item.productItem.defaultProductVariant.price}
+									{convertToDollar(
+										item.productItem.defaultProductVariant.price
+									)}
 								</h4>
 
 								<div className="sm:col-span-2 w-32 mt-2 flex h-10 rounded-md border bg-transparent">
@@ -83,7 +83,7 @@ const CartDetails = () => {
 									</button>
 									<input
 										type="number"
-										className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default text-gray-700  outline-none"
+										className="outline-none focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default text-gray-700"
 										name="quatity-input-number"
 										value={item.quantity}
 										onChange={() => {}}
@@ -132,7 +132,7 @@ const CartDetails = () => {
 						</div>
 					))}
 			</div>
-		</div>
+		</>
 	);
 };
 
