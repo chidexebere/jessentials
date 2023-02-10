@@ -1,9 +1,14 @@
+import Image from 'next/image';
+
 const DemoCard = () => {
 	return (
-		<div className="w-80 h-48 m-auto bg-red-100 rounded-xl relative text-white shadow-2xl">
-			<img
+		<div className="w-80 h-48 bg-red-100 rounded-xl relative text-white shadow-2xl">
+			<Image
+				src={`https://i.imgur.com/Zi6v09P.png`}
+				alt="mastercard card background orange"
 				className="relative object-cover w-full h-full rounded-xl"
-				src="https://i.imgur.com/Zi6v09P.png"
+				width={320}
+				height={192}
 			/>
 			<div className="w-full px-4 absolute top-4">
 				<div className="flex justify-between">
@@ -11,7 +16,13 @@ const DemoCard = () => {
 						<p className="font-light">Name</p>
 						<p className="font-medium tracking-widest">Test</p>
 					</div>
-					<img className="w-12 h-12" src="https://i.imgur.com/bbPHJVe.png" />
+					<Image
+						src={`https://i.imgur.com/bbPHJVe.png`}
+						alt="mastercard logo"
+						className="w-12 h-12"
+						width={48}
+						height={48}
+					/>
 				</div>
 				<div className="pt-1">
 					<p className="font-light">Card Number</p>
