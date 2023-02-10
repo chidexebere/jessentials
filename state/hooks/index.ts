@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { CONSTANTS } from '../actions';
@@ -14,7 +13,7 @@ export const useStateContext = () => {
 			type: CONSTANTS.SET_CART_ITEMS,
 			payload: cartItems,
 		});
-		Cookies.set('cartItems', JSON.stringify(cartItems));
+		localStorage.setItem('cartItems', JSON.stringify(cartItems));
 	};
 
 	const setTotalPrice = (totalPrice: number) => {
@@ -22,7 +21,7 @@ export const useStateContext = () => {
 			type: CONSTANTS.SET_TOTAL_PRICE,
 			payload: totalPrice,
 		});
-		Cookies.set('totalPrice', JSON.stringify(totalPrice));
+		localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
 	};
 
 	const setTotalQuantity = (totalQuantity: number) => {
@@ -30,7 +29,7 @@ export const useStateContext = () => {
 			type: CONSTANTS.SET_TOTAL_QTY,
 			payload: totalQuantity,
 		});
-		Cookies.set('totalQuantity', JSON.stringify(totalQuantity));
+		localStorage.setItem('totalQuantity', JSON.stringify(totalQuantity));
 	};
 
 	const addToCart = (selectedProduct: Product, selectedQuantity: number) => {

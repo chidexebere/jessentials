@@ -15,14 +15,8 @@ interface Props {
 
 const ProductPage = ({ product, products }: Props) => {
 	const { body, title, defaultProductVariant } = product;
-	const {
-		decreaseQty,
-		increaseQty,
-		setQty,
-		selectedQty,
-		addToCart,
-		toggleShowCart,
-	} = useStateContext();
+	const { decreaseQty, increaseQty, setQty, selectedQty, addToCart } =
+		useStateContext();
 
 	const [index, setIndex] = useState(0);
 
