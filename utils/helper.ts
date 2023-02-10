@@ -20,3 +20,10 @@ export const handleCheckout = async (cartItems: CartItem[]) => {
 
 	stripe!.redirectToCheckout({ sessionId: data.id });
 };
+
+export const convertToDollar = (amount: number) => {
+	return amount.toLocaleString('en-US', {
+		style: 'currency',
+		currency: 'USD',
+	});
+};
