@@ -46,7 +46,7 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 		changeBackground();
 		// adding the event when scroll change background
 		window.addEventListener('scroll', changeBackground);
-	});
+	}, [homePath, handleNavAdded, router.pathname]);
 
 	return (
 		<header

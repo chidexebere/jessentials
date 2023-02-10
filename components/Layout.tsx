@@ -31,7 +31,7 @@ const Layout: NextPage<Props> = ({ children }) => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Header handleNavAdded={handleNavAdded} />
-			<main className="mt-6 mx-auto px-12 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem]">
+			<main className="mt-6 mx-auto px-12 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem] min-h-[calc(100vh-320px)]">
 				{children}
 			</main>
 			<Footer />
