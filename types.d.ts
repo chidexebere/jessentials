@@ -4,10 +4,20 @@ type ImageType = {
 	asset: { _ref: string; _type: strings };
 };
 
-type Category = {
+type CategoryRef = {
 	_type: string;
 	_key: string;
 	_ref: string;
+};
+
+type Category = {
+	slug: { _type: string; current: string };
+	title: string;
+	_createdAt: string;
+	_id: string;
+	_rev: string;
+	_type: string;
+	_updatedAt: string;
 };
 
 type BodyContent = {

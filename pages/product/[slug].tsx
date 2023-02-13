@@ -177,8 +177,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({
 	params: { slug } = {},
 }) => {
-	const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-	const productsQuery = '*[_type == "product"]';
+	const query = `*[_type == "product" && slug.current == '${slug}'][0]{
+		_id,
+		title,
+		body,
+		defaultProductVariant,
+	}`;
+	const productsQuery = `*[_type == "product"]{
+		_id,
+		title,
+		slug,
+		defaultProductVariant,
+	}`;
 
 	const product = await client.fetch(query);
 	const products = await client.fetch(productsQuery);

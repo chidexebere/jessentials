@@ -24,7 +24,10 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 
 	const router = useRouter();
 	const homePath = `/`;
-	const cartPath = `/use-cart`;
+	const showNav =
+		router.pathname === homePath ||
+		router.pathname === '/use-cart' ||
+		router.pathname === '/category/[slug]';
 
 	const changeBackground = () => {
 		if (window.scrollY >= 35) {
@@ -79,9 +82,7 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 						</button>
 					</div>
 				</div>
-				{router.pathname === homePath || router.pathname === cartPath ? (
-					<Nav />
-				) : null}
+				{showNav && <Nav />}
 			</div>
 			{showCart && <Cart />}
 		</header>

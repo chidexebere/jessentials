@@ -30,7 +30,15 @@ const Home = ({ products }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const products = await client.fetch(`*[_type == "product"]`);
+	const query = `*[_type == "product"]{
+		_id,
+		title,
+		slug,
+		defaultProductVariant,
+	}`;
+
+	const products = await client.fetch(query);
+
 	return {
 		props: {
 			products,
