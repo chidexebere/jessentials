@@ -1,8 +1,9 @@
-import type { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import Loading from '../../components/Loading';
 import Product from '../../components/Product';
 import { client } from '../../lib/sanity';
+import { makeTitle } from '../../utils/helper';
 
 interface Props {
 	filteredProducts: Product[];
@@ -10,7 +11,6 @@ interface Props {
 }
 
 const Category = ({ filteredProducts, slug }: Props) => {
-	const { categories } = filteredProducts[0];
 	const { data: products, isLoading } = useQuery(
 		['filtered-products', slug],
 		() => filteredProducts
@@ -24,7 +24,7 @@ const Category = ({ filteredProducts, slug }: Props) => {
 		<>
 			{products && (
 				<div className="">
-					<h2 className="font-semibold text-2xl">{categories[0].title}</h2>
+					<h2 className="font-semibold text-2xl">{makeTitle(slug)}</h2>
 
 					<div className="mt-6 sm:px-0 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
 						{products.map((product) => (
