@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const navigation = [
@@ -9,7 +10,18 @@ const navigation = [
 ];
 
 const Nav = () => {
-	const [activeIdx, setActiveIdx] = useState(-1);
+	const router = useRouter();
+
+	const navIndex =
+		router.pathname === '/'
+			? -1
+			: router.pathname === '/category/health-care'
+			? 0
+			: router.pathname === '/category/home-care'
+			? 1
+			: 2;
+
+	const [activeIdx, setActiveIdx] = useState(navIndex);
 
 	return (
 		<nav className="block py-4 overflow-x-auto sm:py-0 sm:pb-2">
