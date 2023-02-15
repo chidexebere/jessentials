@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# JEssentials
 
-## Getting Started
+An eCommerce website for small businesses.
+[Website](https://jessentials.vercel.app/)
 
-First, run the development server:
+## Features
+
+- Customers can select desired product and checkout with stripe.
+- Customers can filter products based on categories.
+- Customers can add, remove and modify product items in cart
+
+## Screenshots
+
+1. Home page with all products in different categories.
+   ![home page with all products](./screenshots/home-page.png)
+
+2. A category page showing products in same category.
+   ![a category page](./screenshots/category-page.png)
+
+3. A product page showing selected item with cart opened on the side.
+   ![a product page showing selected item with cart opened](./screenshots/product-page-with-cart.png)
+
+4. A stripe checkout page for selected item
+   ![a stripe checkout page for selected item](./screenshots/stripe-checkout-page.png)
+
+## Installation
+
+You would need to have [Node.js](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/) installed.
+
+To install dependencies, you can run:
 
 ```bash
-npm run dev
-# or
+yarn
+```
+
+## Running the project
+
+To run the project locally, in the project directory, run:
+
+```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Technologies used
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- NextJS and TypeScript: used to build the UI components
+- Sanity: to manage the ecommerce products and content experiences; serves as backend
+- Tailwind for general styles.
+- React Context: for local state
+- React Query: for managing server state
+- Stripe : to manage checkout
+- Eslint for linting and Prettier for code formating
+- Deployed with vercel
