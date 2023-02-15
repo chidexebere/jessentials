@@ -34,7 +34,7 @@ const ProductPage = ({ getEachProduct, getProducts, slug }: Props) => {
 	const { decreaseQty, increaseQty, setQty, selectedQty, addToCart } =
 		useStateContext();
 
-	const [index, setIndex] = useState(0);
+	const [imageIndex, setImageIndex] = useState(0);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target as HTMLInputElement;
@@ -55,7 +55,7 @@ const ProductPage = ({ getEachProduct, getProducts, slug }: Props) => {
 						<div className="mx-auto sm:h-[26rem] flex items-center bg-neutral-100">
 							<Image
 								src={urlFor(
-									eachProduct.defaultProductVariant.images[index]
+									eachProduct.defaultProductVariant.images[imageIndex]
 								).url()}
 								alt={eachProduct.title}
 								className="object-center object-cover bg-neutral-100 rounded-lg overflow-hidden shadow-lg shadow-indigo-500/50 hover:shadow-red-500/50"
@@ -70,13 +70,13 @@ const ProductPage = ({ getEachProduct, getProducts, slug }: Props) => {
 									src={urlFor(item).url()}
 									alt={eachProduct.title}
 									className={
-										i === index
+										i === imageIndex
 											? 'rounded-md cursor-pointer shadow-md hover:shadow-red-500'
 											: 'rounded-md cursor-pointer'
 									}
 									width={70}
 									height={70}
-									onMouseEnter={() => setIndex(i)}
+									onMouseEnter={() => setImageIndex(i)}
 								/>
 							))}
 						</div>
@@ -160,7 +160,11 @@ const ProductPage = ({ getEachProduct, getProducts, slug }: Props) => {
 					<div className="relative w-full h-[22rem] overflow-x-hidden">
 						<div className="flex justify-start gap-8 absolute whitespace-nowrap will-change-transform animate-marquee hover:pause">
 							{products.map((item) => (
-								<div key={item._id} className="w-60">
+								<div
+									key={item._id}
+									className="w-60"
+									onClick={() => setImageIndex(0)}
+								>
 									<Product product={item} />
 								</div>
 							))}
