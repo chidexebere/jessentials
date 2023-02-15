@@ -19,7 +19,9 @@ const Nav = () => {
 			? 0
 			: router.pathname === '/category/home-care'
 			? 1
-			: 2;
+			: router.pathname === '/category/fashion'
+			? 2
+			: null;
 
 	const [activeIdx, setActiveIdx] = useState(navIndex);
 
