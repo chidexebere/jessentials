@@ -13,12 +13,6 @@ interface Props {
 }
 
 const Layout: NextPage<Props> = ({ children }) => {
-	const [isNavAdded, setIsNavAdded] = useState(false);
-
-	const handleNavAdded = (value: boolean) => {
-		setIsNavAdded(value);
-	};
-
 	return (
 		<div className="bg-neutral-100">
 			<Head>
@@ -30,7 +24,7 @@ const Layout: NextPage<Props> = ({ children }) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Header handleNavAdded={handleNavAdded} />
+			<Header />
 			<main className="mt-6 mx-auto px-12 mb-10 sm:px-8 sm:my-12 lg:px-14 xl:w-[80rem] min-h-[calc(100vh-320px)]">
 				{children}
 			</main>

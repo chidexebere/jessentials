@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
@@ -12,11 +11,7 @@ const Cart = dynamic(() => import('./Cart'), {
 	ssr: false,
 });
 
-interface Props {
-	handleNavAdded: (value: boolean) => void;
-}
-
-const Header: NextPage<Props> = ({ handleNavAdded }) => {
+const Header = () => {
 	const [changeHeaderColor, setChangeHeaderColor] = useState(false);
 	const [height, setHeight] = useState('h-16');
 
@@ -40,16 +35,10 @@ const Header: NextPage<Props> = ({ handleNavAdded }) => {
 	};
 
 	useEffect(() => {
-		if (router.pathname === homePath) {
-			handleNavAdded(true);
-		} else {
-			handleNavAdded(false);
-		}
-
 		changeBackground();
 		// adding the event when scroll change background
 		window.addEventListener('scroll', changeBackground);
-	}, [homePath, handleNavAdded, router.pathname]);
+	}, [homePath, router.pathname]);
 
 	return (
 		<header
