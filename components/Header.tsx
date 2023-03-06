@@ -38,6 +38,7 @@ const Header = () => {
 		changeBackground();
 		// adding the event when scroll change background
 		window.addEventListener('scroll', changeBackground);
+		return () => window.removeEventListener('scroll', changeBackground);
 	}, [homePath, router.pathname]);
 
 	return (
