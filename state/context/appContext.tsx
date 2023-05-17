@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useReducer, Dispatch } from 'react';
 import { AppActions } from '../actions';
 import appReducer from '../reducers/appReducer';
