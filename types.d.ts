@@ -75,3 +75,11 @@ interface IAppState {
 	totalQuantity: number;
 	selectedQty: number;
 }
+
+type PageParams = {
+	slug: string;
+};
+
+type PageProps = {
+	params: PageParams;
+};
