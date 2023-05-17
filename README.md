@@ -50,7 +50,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 - Sanity: to manage the ecommerce products and content experiences; serves as backend
 - Tailwind for general styles.
 - React Context: for local state
-- React Query: for managing server state
 - Stripe : to manage checkout
 - Eslint for linting and Prettier for code formating
 - Deployed with vercel
