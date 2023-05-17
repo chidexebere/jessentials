@@ -13,6 +13,7 @@ import { convertToDollar } from '../../utils/helper';
 
 const CartDetails = () => {
 	const [showModal, setShowModal] = useState(false);
+	const [selectedItem, setSelectedItem] = useState<CartItem>();
 
 	const {
 		cartItems,
@@ -26,8 +27,17 @@ const CartDetails = () => {
 		setShowModal(!showModal);
 	};
 
-	const openModal = (e: React.MouseEvent) => {
+	const openModal = (e: React.MouseEvent, item: CartItem) => {
 		e.stopPropagation();
+		toggleModal();
+		setSelectedItem(item);
+	};
+
+	const handleSubmit = (
+		e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
+	) => {
+		e.preventDefault();
+		selectedItem && removeFromCart(selectedItem.productItem);
 		toggleModal();
 	};
 
@@ -102,28 +112,20 @@ const CartDetails = () => {
 								<button
 									type="button"
 									className="mt-2 w-10 h-10 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2"
-									onClick={openModal}
+									onClick={(e) => openModal(e, item)}
 								>
 									<HiX className="w-5 h-5 m-auto" />
 								</button>
 
 								<Modal
-									title={`Remove ${item.productItem.title}`}
+									title={`Remove ${selectedItem?.productItem.title}`}
 									isOpen={showModal}
 									handleClick={toggleModal}
 								>
 									<Confirm
 										toggleModal={toggleModal}
 										name="remove"
-										handleSubmit={(
-											e:
-												| React.FormEvent<HTMLFormElement>
-												| React.MouseEvent<HTMLButtonElement>
-										) => {
-											e.preventDefault();
-											removeFromCart(item.productItem);
-											toggleModal();
-										}}
+										handleSubmit={handleSubmit}
 									>
 										<h5 className="text-lg leading-normal font-normal text-gray-800">
 											Do you want to remove this item from cart?
