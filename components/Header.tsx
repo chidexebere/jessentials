@@ -18,7 +18,8 @@ const Header = () => {
 	const { showCart, toggleShowCart, totalQuantity } = useStateContext();
 
 	const pathname = usePathname();
-	const { slug } = useParams();
+	const params = useParams();
+	const { slug } = params as PageParams;
 	const homePath = `/`;
 	const showNav =
 		pathname === homePath ||
@@ -44,13 +45,13 @@ const Header = () => {
 
 	const navIndex =
 		pathname === '/'
-			? -1
-			: pathname === '/category/health-care'
 			? 0
-			: pathname === '/category/home-care'
+			: pathname === '/category/health-care'
 			? 1
-			: pathname === '/category/fashion'
+			: pathname === '/category/home-care'
 			? 2
+			: pathname === '/category/fashion'
+			? 3
 			: null;
 
 	const [activeIdx, setActiveIdx] = useState(navIndex);
@@ -64,7 +65,7 @@ const Header = () => {
 		>
 			<div className="mx-auto px-4 py-2 sm:px-8 lg:px-14 xl:w-[80rem]">
 				<div className={`flex items-center justify-between ${height}`}>
-					<Link href={`/`} onClick={() => setActiveIdx(-1)}>
+					<Link href={`/`} onClick={() => setActiveIdx(0)}>
 						<h1 className="text-3xl text-red-700 font-bold">
 							J<span className="text-2xl text-black">ESSENTIALS</span>
 						</h1>
