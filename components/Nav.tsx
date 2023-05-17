@@ -1,6 +1,8 @@
+'use client';
+
 import classNames from 'classnames';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 const navigation = [
@@ -10,16 +12,16 @@ const navigation = [
 ];
 
 const Nav = () => {
-	const router = useRouter();
+	const pathname = usePathname();
 
 	const navIndex =
-		router.pathname === '/'
+		pathname === '/'
 			? -1
-			: router.pathname === '/category/health-care'
+			: pathname === '/category/health-care'
 			? 0
-			: router.pathname === '/category/home-care'
+			: pathname === '/category/home-care'
 			? 1
-			: router.pathname === '/category/fashion'
+			: pathname === '/category/fashion'
 			? 2
 			: null;
 

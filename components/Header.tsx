@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import Link from 'next/link';
@@ -7,9 +9,7 @@ import Nav from './Nav';
 import { useStateContext } from '../state/hooks';
 import dynamic from 'next/dynamic';
 
-const Cart = dynamic(() => import('./Cart'), {
-	ssr: false,
-});
+const Cart = dynamic(() => import('./Cart'), { ssr: false });
 
 const Header = () => {
 	const [changeHeaderColor, setChangeHeaderColor] = useState(false);
@@ -17,12 +17,12 @@ const Header = () => {
 
 	const { showCart, toggleShowCart, totalQuantity } = useStateContext();
 
-	const router = useRouter();
+	const pathname = usePathname();
 	const homePath = `/`;
 	const showNav =
-		router.pathname === homePath ||
-		router.pathname === '/use-cart' ||
-		router.pathname === '/category/[slug]';
+		pathname === homePath ||
+		pathname === '/use-cart' ||
+		pathname === '/category/[slug]';
 
 	const changeBackground = () => {
 		if (window.scrollY >= 35) {
@@ -39,7 +39,7 @@ const Header = () => {
 		// adding the event when scroll change background
 		window.addEventListener('scroll', changeBackground);
 		return () => window.removeEventListener('scroll', changeBackground);
-	}, [homePath, router.pathname]);
+	}, [homePath, pathname]);
 
 	return (
 		<header

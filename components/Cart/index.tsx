@@ -1,19 +1,10 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+'use client';
+
 import { HiArrowLeft } from 'react-icons/hi';
 import { useStateContext } from '../../state/hooks';
-
-const CartDetails = dynamic(() => import('../Cart/CartDetails'), {
-	ssr: false,
-});
-
-const CartSummary = dynamic(() => import('../Cart/CartSummary'), {
-	ssr: false,
-});
-
-const CartHeader = dynamic(() => import('../Cart/CartHeader'), {
-	ssr: false,
-});
+import CartHeader from './CartHeader';
+import CartDetails from './CartDetails';
+import CartSummary from './CartSummary';
 
 const Cart = () => {
 	const { toggleShowCart } = useStateContext();

@@ -1,3 +1,5 @@
+'use client';
+
 import { HiArrowDown } from 'react-icons/hi';
 import { useStateContext } from '../../state/hooks';
 import { convertToDollar, handleCheckout } from '../../utils/helper';
