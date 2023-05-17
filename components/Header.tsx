@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import Link from 'next/link';
@@ -18,11 +18,12 @@ const Header = () => {
 	const { showCart, toggleShowCart, totalQuantity } = useStateContext();
 
 	const pathname = usePathname();
+	const { slug } = useParams();
 	const homePath = `/`;
 	const showNav =
 		pathname === homePath ||
 		pathname === '/use-cart' ||
-		pathname === '/category/[slug]';
+		pathname === `/category/${slug}`;
 
 	const changeBackground = () => {
 		if (window.scrollY >= 35) {
@@ -41,6 +42,19 @@ const Header = () => {
 		return () => window.removeEventListener('scroll', changeBackground);
 	}, [homePath, pathname]);
 
+	const navIndex =
+		pathname === '/'
+			? -1
+			: pathname === '/category/health-care'
+			? 0
+			: pathname === '/category/home-care'
+			? 1
+			: pathname === '/category/fashion'
+			? 2
+			: null;
+
+	const [activeIdx, setActiveIdx] = useState(navIndex);
+
 	return (
 		<header
 			className={cn(
@@ -50,7 +64,7 @@ const Header = () => {
 		>
 			<div className="mx-auto px-4 py-2 sm:px-8 lg:px-14 xl:w-[80rem]">
 				<div className={`flex items-center justify-between ${height}`}>
-					<Link href={`/`}>
+					<Link href={`/`} onClick={() => setActiveIdx(-1)}>
 						<h1 className="text-3xl text-red-700 font-bold">
 							J<span className="text-2xl text-black">ESSENTIALS</span>
 						</h1>
@@ -72,7 +86,7 @@ const Header = () => {
 						</button>
 					</div>
 				</div>
-				{showNav && <Nav />}
+				{showNav && <Nav activeIdx={activeIdx} setActiveIdx={setActiveIdx} />}
 			</div>
 			{showCart && <Cart />}
 		</header>
