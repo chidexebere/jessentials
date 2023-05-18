@@ -18,7 +18,7 @@ export const generateStaticParams: () => Promise<PageParams[]> = async () => {
 	return paths;
 };
 
-export const getFilteredProducts = async (slug: string) => {
+const getFilteredProducts = async (slug: string) => {
 	const query = `*[_type == "product" && '${slug}' in categories[]->slug.current] {
 		_id,
 		title,

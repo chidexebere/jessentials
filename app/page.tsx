@@ -1,7 +1,7 @@
 import Product from '../components/Product';
 import { client } from '../lib/sanity';
 
-export const getProducts: () => Promise<Product[]> = async () => {
+const getProducts: () => Promise<Product[]> = async () => {
 	const query = `*[_type == "product"]{
 		_id,
 		title,
