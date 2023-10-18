@@ -31,8 +31,8 @@ const ProductPage = ({ eachProduct, products }: Props) => {
   return (
     <div className="">
       {eachProduct && (
-        <div className="lg:grid lg:grid-cols-8 lg:gap-x-8">
-          <div className="lg:col-span-4 flex flex-col">
+        <div className="flex flex-col lg:flex-row">
+          <div className="lg:basis-1/2 flex flex-col">
             <div className="mx-auto sm:h-[26rem] flex items-center bg-neutral-100">
               <Image
                 src={urlFor(
@@ -62,7 +62,7 @@ const ProductPage = ({ eachProduct, products }: Props) => {
               ))}
             </div>
           </div>
-          <div className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:col-span-4">
+          <div className="lg:basis-1/2 max-w-xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0">
             <motion.div initial={{ y: 100 }} animate={{ y: 0 }}>
               <div className="flex flex-col">
                 <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 ">
